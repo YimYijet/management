@@ -1,0 +1,19 @@
+{
+  "name": "koa-server",
+  "version": "1.0.0",
+  "description": "KOA2 with typescript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "koa",
+    "typescript",
+    "mongodb"
+  ],
+  "author": "yimyijet@163.com",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^2.5.2"
+  }
+}
