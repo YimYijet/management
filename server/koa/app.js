@@ -1,9 +1,9 @@
-import koa from 'koa'
+const koa = require('koa')
 
 const app = new koa()
 
 const main = ctx => {
-    cts.response.body = 'Hello nginx'
+    ctx.response.body = 'Hello nginx'
 }
 
 app.use(main)
