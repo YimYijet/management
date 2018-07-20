@@ -4,7 +4,13 @@
   "description": "KOA2 with typescript",
   "main": "index.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node dist/app.js",
+    "tslint": "tslint -c tslint.json -p tsconfig.json",
+    "build": "npm run tslint && tsc",
+    "dev": "nodemon dist/app.js"
+  },
+  "engines": {
+    "node": ">= 7.6"
   },
   "keywords": [
     "koa",
@@ -14,6 +20,25 @@
   "author": "yimyijet@163.com",
   "license": "ISC",
   "dependencies": {
-    "koa": "^2.5.2"
+    "kcors": "^2.2.2",
+    "koa": "^2.5.2",
+    "koa-bodyparser": "^4.2.1",
+    "koa-logger": "^3.2.0",
+    "koa-router": "^7.4.0",
+    "mongodb": "^3.1.0",
+    "sails-mongo": "^1.0.1",
+    "waterline": "^0.13.5"
+  },
+  "devDependencies": {
+    "@types/kcors": "^2.2.3",
+    "@types/koa": "^2.0.46",
+    "@types/koa-bodyparser": "^5.0.1",
+    "@types/koa-logger": "^3.1.0",
+    "@types/koa-router": "^7.0.30",
+    "@types/node": "^10.5.2",
+    "nodemon": "^1.18.3",
+    "ts-node": "^7.0.0",
+    "tslint": "^5.11.0",
+    "typescript": "^2.9.2"
   }
 }
