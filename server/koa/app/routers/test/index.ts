@@ -6,4 +6,4 @@ const router = new Router();
 export default router
     .get('/user', test.getUserList)
 
-    .get('/addUser', test.addUser);
+    .post('/user', test.addUser);

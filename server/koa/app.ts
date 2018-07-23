@@ -1,11 +1,13 @@
 import * as koa from 'koa';
+import * as bodyParser from 'koa-bodyparser';
 import * as evn from './config/environment';
 import router from './app/routers';
-import { config } from './config/database';
 import waterline from './app/models';
+import { config } from './config/database';
 
 const app = new koa();
 
+app.use(bodyParser());
 app.use(router.routes());
 
 waterline.initialize(config, (err: any, models: any) => {

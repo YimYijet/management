@@ -1,14 +1,29 @@
 import { Context } from 'koa';
-import { getUser, addUser } from '../../services/user';
+import * as service from '../../services/user';
+import { User } from '../../models/user';
 
 export default {
     async getUserList(ctx: Context): Promise<void> {
-        const userList = await getUser();
-        ctx.response.body = userList;
+        const userList = await service.find();
+        ctx.body = {
+            code: 200,
+            content: userList
+        };
     },
 
     async addUser(ctx: Context): Promise<void> {
-        const user = await addUser({ name: 'jerry' });
-        ctx.response.body = user;
+        const item: User = <User>ctx.request.body;
+        if (item.hasOwnProperty('name')) {
+            const user = await service.create(item);
+            ctx.body = {
+                code: 200,
+                content: user
+            };
+        } else {
+            ctx.body = {
+                code: 400,
+                content: {}
+            };
+        }
     }
 };
