@@ -1,4 +1,2 @@
 // 服务器端口
-export default {
-    port: 3344,
-};
+export const port = 3344;
