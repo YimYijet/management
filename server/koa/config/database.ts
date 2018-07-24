@@ -1,13 +1,7 @@
-const mongoAdapter = require('sails-mongo');
+import * as mongoose from 'mongoose';
 
-export const config = {
-    adapters: {
-        'mongo': mongoAdapter,
-    },
-    datastores: {
-        management: {
-            adapter: 'mongo',
-            url: 'mongodb://localhost:27017/test'
-        }
-    }
-};
+mongoose.connect('mongodb://localhost:27017/test', {
+    useNewUrlParser: true
+});
+
+export default mongoose;

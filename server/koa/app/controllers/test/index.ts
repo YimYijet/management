@@ -1,18 +1,17 @@
 import { Context } from 'koa';
-import * as service from '../../services/user';
-import { User } from '../../models/user';
+import { IUser } from '../../models/user';
+import service from '../../services/user';
 
-export default {
+class UserController {
     async getUserList(ctx: Context): Promise<void> {
         const userList = await service.find();
         ctx.body = {
             code: 200,
             content: userList
         };
-    },
-
+    }
     async addUser(ctx: Context): Promise<void> {
-        const item: User = <User>ctx.request.body;
+        const item: IUser = <IUser>ctx.request.body;
         if (item.hasOwnProperty('name')) {
             const user = await service.create(item);
             ctx.body = {
@@ -26,4 +25,5 @@ export default {
             };
         }
     }
-};
+}
+export default new UserController();

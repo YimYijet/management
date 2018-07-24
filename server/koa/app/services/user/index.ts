@@ -1,15 +1,13 @@
-import waterline from '../../models';
-import { User } from '../../models/User';
+import User, { IUser } from '../../models/User';
 
-const find = async (): Promise<Array<User>> => {
-    return waterline.models.user.find();
-};
+class UserService {
+    async find(): Promise<Array<IUser>> {
+        return User.find({}).exec();
+    }
+    async create(item: IUser): Promise<IUser> {
+        const user = new User(item);
+        return user.save();
+    }
+}
 
-const create = async (item: User): Promise<User> => {
-    return waterline.models.user.create(item).fetch();
-};
-
-export {
-    find,
-    create
-};
+export default new UserService();

@@ -1,22 +1,14 @@
-const waterline = require('waterline');
+import mongoose from '../../../config/database';
 
-export interface User {
+export interface IUser extends mongoose.Document {
     name: String;
 }
 
-export const model = waterline.Collection.extend({
-    identity: 'user',
-    tableName: 'user',
-    datastore: 'management',
-    schema: true,
-    primaryKey: 'id',
-    attributes: {
-        id: {
-            type: 'string',
-            columnName: '_id',
-        },
-        name: {
-            type: 'string',
-        }
+export const UserSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true
     }
 });
+
+export default mongoose.model<IUser>('user', UserSchema);
