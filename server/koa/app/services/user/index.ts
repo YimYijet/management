@@ -1,4 +1,4 @@
-import User, { IUser } from '../../models/User';
+import User, { IUser } from '../../models/user';
 
 class UserService {
     async find(): Promise<Array<IUser>> {
