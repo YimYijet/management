@@ -16,4 +16,4 @@ export const ResourceSchema = new Schema({
     }
 });
 
-export default mongoose.model<IResource>('resource', ResourceSchema);
+export default mongoose.model<IResource>('acl_resource', ResourceSchema, 'acl_resource');

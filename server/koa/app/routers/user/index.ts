@@ -1,9 +1,12 @@
-import test from '../../controllers/user';
+import ctrl from '../../controllers/user';
 import * as Router from 'koa-router';
 
 const router = new Router();
 
-export default router
-    .get('/users', test.getUserList)
+router.get('/users', ctrl.getUserList);
 
-    .post('/users', test.addUser);
+router.post('/users', ctrl.addUser);
+
+router.post('/users/:id/roles', ctrl.bindRole);
+
+export default router;

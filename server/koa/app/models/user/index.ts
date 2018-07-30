@@ -22,4 +22,4 @@ export const UserSchema = new Schema({
     }
 });
 
-export default mongoose.model<IUser>('user', UserSchema);
+export default mongoose.model<IUser>('acl_user', UserSchema, 'acl_user');

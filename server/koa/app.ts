@@ -8,5 +8,3 @@ app.use(bodyParser());
 app.use(router.routes());
 
 app.listen(env.port);
-
-

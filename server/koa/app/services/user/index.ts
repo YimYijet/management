@@ -8,6 +8,9 @@ class UserService {
         const user = new User(item);
         return user.save();
     }
+    async findById(userId: any): Promise<IUser> {
+        return User.findById(userId).exec();
+    }
 }
 
 export default new UserService();

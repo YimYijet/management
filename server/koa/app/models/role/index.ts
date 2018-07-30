@@ -12,4 +12,4 @@ export const RoleSchema = new Schema({
     }
 });
 
-export default mongoose.model<IRole>('role', RoleSchema);
+export default mongoose.model<IRole>('acl_role', RoleSchema, 'acl_role');
