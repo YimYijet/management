@@ -3,7 +3,8 @@ import * as Router from 'koa-router';
 
 const router = new Router();
 
-export default router
-    .get('/resources', ctrl.getResourceList)
+router.get('/', ctrl.getResourceList);
 
-    .post('/resources', ctrl.addResource);
+router.post('/', ctrl.addResource);
+
+export default router;

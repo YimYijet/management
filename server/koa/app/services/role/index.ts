@@ -5,8 +5,11 @@ class RoleService {
         return Role.find({}).exec();
     }
     async create(item: IRole): Promise<IRole> {
-        const user = new Role(item);
-        return user.save();
+        const role = new Role(item);
+        return role.save();
+    }
+    async findOne(item: any): Promise<IRole> {
+        return Role.findOne(item).exec();
     }
 }
 

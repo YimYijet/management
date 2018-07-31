@@ -5,8 +5,11 @@ class ResourceService {
         return Resource.find({}).exec();
     }
     async create(item: IResource): Promise<IResource> {
-        const user = new Resource(item);
-        return user.save();
+        const resource = new Resource(item);
+        return resource.save();
+    }
+    async findOne(item: any): Promise<IResource> {
+        return Resource.findOne(item).exec();
     }
 }
 

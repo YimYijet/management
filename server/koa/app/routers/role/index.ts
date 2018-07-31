@@ -3,7 +3,8 @@ import * as Router from 'koa-router';
 
 const router = new Router();
 
-export default router
-    .get('/roles', ctrl.getRoleList)
+router.get('/', ctrl.getRoleList);
 
-    .post('/roles', ctrl.addRole);
+router.post('/', ctrl.addRole);
+
+export default router;
