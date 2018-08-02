@@ -1,6 +1,10 @@
 import * as Router from 'koa-router';
 const router = new Router();
 
+// 登录模块
+import login from './login';
+router.use('', login.routes());
+
 // 用户模块路由
 import user from './user';
 router.use('/users', user.routes());

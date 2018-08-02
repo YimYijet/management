@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-import AclInstance from './acl';
+import AclInstance from '../lib/acl';
 
 export const dbUrl = {
     uri: 'mongodb://localhost:27017',

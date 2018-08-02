@@ -7,4 +7,10 @@ router.get('/', ctrl.getRoleList);
 
 router.post('/', ctrl.addRole);
 
+router.get('/:id', ctrl.getRoleById);
+
+router.delete('/:id', ctrl.deleteRole);
+
+router.put('/:id', ctrl.updateRole);
+
 export default router;
