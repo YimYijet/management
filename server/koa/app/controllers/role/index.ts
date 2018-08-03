@@ -6,7 +6,7 @@ class RoleController {
     // 获取全部角色列表
     async getRoleList(ctx: Context): Promise<void> {
         try {
-            const roleList = await service.find();
+            const roleList: Array<IRole> = await service.find();
             ctx.body = {
                 code: 200,
                 message: '请求成功',
@@ -24,7 +24,8 @@ class RoleController {
     // 添加角色
     async addRole(ctx: Context): Promise<void> {
         try {
-            const item: IRole = <IRole>ctx.request.body, role = await service.findOne({ name: item.name });
+            const item: IRole = <IRole>ctx.request.body,
+                role: IRole = await service.findOne({ name: item.name });
             if (!role) {
                 const role = await service.create(item);
                 ctx.body = {
@@ -77,7 +78,9 @@ class RoleController {
     // 更新角色
     async updateRole(ctx: Context): Promise<void> {
         try {
-            const roleId: string = ctx.params.id, item: any = ctx.request.body, role = await service.update({ _id: roleId }, item);
+            const roleId: string = ctx.params.id,
+                item: any = ctx.request.body,
+                role: IRole = await service.update({ _id: roleId }, item);
             if (role) {
                 ctx.body = {
                     code: 200,
@@ -103,7 +106,8 @@ class RoleController {
     // 查询角色
     async getRoleById(ctx: Context): Promise<void> {
         try {
-            const roleId: string = ctx.params.id, role = await service.findById(roleId);
+            const roleId: string = ctx.params.id,
+                role: IRole = await service.findById(roleId);
             ctx.body = {
                 code: 200,
                 message: '请求成功',

@@ -1,14 +1,18 @@
 import { Context } from 'koa';
+import * as util from '../../../lib/util';
 import { IUser } from '../../models/user';
 import userService from '../../services/user';
-import util from '../../../lib/util';
 
 class LoginController {
+    // 登录
     async login(ctx: Context): Promise<void> {
         try {
-            const item: any = ctx.request.body, password = util.encrypt(item.password), user: IUser = await userService.findOne({ account: item.account });
-            if (user.password === password) {
-                ctx.session.userId = user.id;
+            const query: any = ctx.request.body;
+            query.password = util.encrypt(query.password);
+            const user: IUser = await userService.findOne(query);
+            if (user) {
+                ctx.session.curUserId = user.id;
+                ctx.session.curUser = user;
                 ctx.body = {
                     code: 200,
                     message: '请求成功',
@@ -26,6 +30,25 @@ class LoginController {
             ctx.body = {
                 code: 400,
                 message: '错误请求',
+                content: {}
+            };
+        }
+    }
+    // 登出
+    async logout(ctx: Context): Promise<void> {
+        try {
+            delete ctx.session.curUser;
+            delete ctx.session.curUserId;
+            ctx.body = {
+                code: 200,
+                message: '请求成功',
+                content: {}
+            };
+        } catch (e) {
+            console.log(e);
+            ctx.body = {
+                code: 500,
+                message: '服务器错误',
                 content: {}
             };
         }

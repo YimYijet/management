@@ -1,6 +1,6 @@
 import { Context } from 'koa';
+import * as util from '../../../lib/util';
 import aclInstance from '../../../lib/acl';
-import util from '../../../lib/util';
 import { IUser } from '../../models/user';
 import service from '../../services/user';
 import { IRole } from '../../models/role';
@@ -32,7 +32,8 @@ class UserController {
     // 添加用户
     async addUser(ctx: Context): Promise<void> {
         try {
-            const item: IUser = <IUser>ctx.request.body, user: IUser = await service.findOne({ account: item.account });
+            const item: IUser = <IUser>ctx.request.body,
+                user: IUser = await service.findOne({ account: item.account });
             if (!user) {
                 item.password = util.encrypt(item.password);
                 const user = await service.create(item);
@@ -86,7 +87,8 @@ class UserController {
     // 更新用户
     async updateUser(ctx: Context): Promise<void> {
         try {
-            const userId: string = ctx.params.id, item: any = ctx.request.body;
+            const userId: string = ctx.params.id,
+                item: any = ctx.request.body;
             delete item.account;
             if (item.password) {
                 item.password = util.encrypt(item.password);
@@ -117,7 +119,8 @@ class UserController {
     // 查询用户
     async getUserById(ctx: Context): Promise<void> {
         try {
-            const userId: string = ctx.params.id, user = await service.findById(userId);
+            const userId: string = ctx.params.id,
+                user: IUser = await service.findById(userId);
             ctx.body = {
                 code: 200,
                 message: '请求成功',
@@ -136,7 +139,7 @@ class UserController {
     async bindRole(ctx: Context): Promise<void> {
         const userId: Value = <Value>ctx.params.id,
             roles: strings = <strings>ctx.request.body,
-            user = await service.findById(userId);
+            user: IUser = await service.findById(userId);
         if (user) {
             await aclInstance.getAcl().addUserRoles(userId, roles);
         }

@@ -6,7 +6,7 @@ class ResourceController {
     // 获取全部资源列表
     async getResourceList(ctx: Context): Promise<void> {
         try {
-            const resourceList = await service.find();
+            const resourceList: Array<IResource> = await service.find();
             ctx.body = {
                 code: 200,
                 message: '请求成功',
@@ -24,7 +24,8 @@ class ResourceController {
     // 添加资源
     async addResource(ctx: Context): Promise<void> {
         try {
-            const item: IResource = <IResource>ctx.request.body, resource = await service.findOne({ name: item.name });
+            const item: IResource = <IResource>ctx.request.body,
+                resource: IResource = await service.findOne({ name: item.name });
             if (!resource) {
                 const resource = await service.create(item);
                 ctx.body = {
@@ -77,7 +78,9 @@ class ResourceController {
     // 更新资源
     async updateResource(ctx: Context): Promise<void> {
         try {
-            const resourceId: string = ctx.params.id, item: any = ctx.request.body, resource = await service.update({ _id: resourceId }, item);
+            const resourceId: string = ctx.params.id,
+                item: any = ctx.request.body,
+                resource: IResource = await service.update({ _id: resourceId }, item);
             if (resource) {
                 ctx.body = {
                     code: 200,
@@ -103,7 +106,8 @@ class ResourceController {
     // 查询资源
     async getResourceById(ctx: Context): Promise<void> {
         try {
-            const resourceId: string = ctx.params.id, resource = await service.findById(resourceId);
+            const resourceId: string = ctx.params.id,
+                resource: IResource = await service.findById(resourceId);
             ctx.body = {
                 code: 200,
                 message: '请求成功',

@@ -1,6 +1,11 @@
 import * as Router from 'koa-router';
 const router = new Router();
 
+export const intercept = new Router();
+
+import iterceptCtrl from '../controllers/intercept';
+intercept.all('/', iterceptCtrl.intercept);
+
 // 登录模块
 import login from './login';
 router.use('', login.routes());
