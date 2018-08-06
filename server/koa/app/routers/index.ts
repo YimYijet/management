@@ -1,25 +1,24 @@
-import * as Router from 'koa-router';
-const router = new Router();
+import * as Router from 'koa-router'
+const router = new Router()
 
-export const intercept = new Router();
-
-import iterceptCtrl from '../controllers/intercept';
-intercept.all('/', iterceptCtrl.intercept);
+// 主页
+import home from './home'
+router.use('', home.routes())
 
 // 登录模块
-import login from './login';
-router.use('', login.routes());
+import login from './login'
+router.use('', login.routes())
 
 // 用户模块路由
-import user from './user';
-router.use('/users', user.routes());
+import user from './user'
+router.use('/users', user.routes())
 
 // 角色模块路由
-import role from './role';
-router.use('/roles', role.routes());
+import role from './role'
+router.use('/roles', role.routes())
 
 // 资源模块路由
-import resource from './resource';
-router.use('/resources', resource.routes());
+import resource from './resource'
+router.use('/resources', resource.routes())
 
-export default router;
+export default router

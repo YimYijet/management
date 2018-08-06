@@ -1,16 +1,16 @@
-import ctrl from '../../controllers/role';
-import * as Router from 'koa-router';
+import ctrl from '../../controllers/role'
+import * as Router from 'koa-router'
 
-const router = new Router();
+const router = new Router()
 
-router.get('/', ctrl.getRoleList);
+router.get('/', ctrl.getRoleList)
 
-router.post('/', ctrl.addRole);
+router.post('/', ctrl.addRole)
 
-router.get('/:id', ctrl.getRoleById);
+router.get('/:id', ctrl.getRoleById)
 
-router.delete('/:id', ctrl.deleteRole);
+router.delete('/:id', ctrl.deleteRole)
 
-router.put('/:id', ctrl.updateRole);
+router.put('/:id', ctrl.updateRole)
 
-export default router;
+export default router

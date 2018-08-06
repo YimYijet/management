@@ -1,9 +1,10 @@
-import ctrl from '../../controllers/login';
-import * as Router from 'koa-router';
+import ctrl from '../../controllers/login'
+import * as Router from 'koa-router'
 
-const router = new Router();
+const router = new Router()
 
-router.post('/login', ctrl.login);
+router.post('/login', ctrl.login)
 
-router.post('/logout', ctrl.logout);
-export default router;
+router.post('/logout', ctrl.logout)
+
+export default router

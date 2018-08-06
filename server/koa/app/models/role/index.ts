@@ -1,8 +1,8 @@
-import mongoose from '../../../config/db';
-import { Schema } from '../../../config/db';
+import mongoose from '../../../config/db'
+import { Schema } from '../../../config/db'
 
 export interface IRole extends mongoose.Document {
-    name: String;
+    name: String
 }
 
 export const RoleSchema = new Schema({
@@ -10,6 +10,6 @@ export const RoleSchema = new Schema({
         type: String,
         required: true
     }
-});
+})
 
-export default mongoose.model<IRole>('acl_role', RoleSchema, 'acl_role');
+export default mongoose.model<IRole>('role', RoleSchema, 'acl_role')

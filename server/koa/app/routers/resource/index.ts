@@ -1,16 +1,16 @@
-import ctrl from '../../controllers/resource';
-import * as Router from 'koa-router';
+import ctrl from '../../controllers/resource'
+import * as Router from 'koa-router'
 
-const router = new Router();
+const router = new Router()
 
-router.get('/', ctrl.getResourceList);
+router.get('/', ctrl.getResourceList)
 
-router.post('/', ctrl.addResource);
+router.post('/', ctrl.addResource)
 
-router.get('/:id', ctrl.getResourceById);
+router.get('/:id', ctrl.getResourceById)
 
-router.delete('/:id', ctrl.deleteResource);
+router.delete('/:id', ctrl.deleteResource)
 
-router.put('/:id', ctrl.updateResource);
+router.put('/:id', ctrl.updateResource)
 
-export default router;
+export default router

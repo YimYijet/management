@@ -1,25 +1,25 @@
-import Resource, { IResource } from '../../models/resource';
+import Resource, { IResource } from '../../models/resource'
 
 class ResourceService {
     async find(): Promise<Array<IResource>> {
-        return Resource.find({}).exec();
+        return Resource.find({}).exec()
     }
     async findOne(query: any): Promise<IResource> {
-        return Resource.findOne(query).exec();
+        return Resource.findOne(query).exec()
     }
     async findById(resourceId: any): Promise<IResource> {
-        return Resource.findById(resourceId).exec();
+        return Resource.findById(resourceId).exec()
     }
     async create(item: IResource): Promise<IResource> {
-        const resource = new Resource(item);
-        return resource.save();
+        const resource = new Resource(item)
+        return resource.save()
     }
     async remove(query: any): Promise<any> {
-        return Resource.remove(query).exec();
+        return Resource.remove(query).exec()
     }
     async update(query: any, item: any): Promise<IResource> {
-        return Resource.findOneAndUpdate(query, item, { new: true });
+        return Resource.findOneAndUpdate(query, item, { new: true })
     }
 }
 
-export default new ResourceService();
+export default new ResourceService()

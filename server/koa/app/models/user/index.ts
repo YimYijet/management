@@ -1,10 +1,10 @@
-import mongoose from '../../../config/db';
-import { Schema } from '../../../config/db';
+import mongoose from '../../../config/db'
+import { Schema } from '../../../config/db'
 
 export interface IUser extends mongoose.Document {
-    account: String;
-    password: String;
-    name: String;
+    account: String
+    password: String
+    name: String
 }
 
 export const UserSchema = new Schema({
@@ -20,6 +20,6 @@ export const UserSchema = new Schema({
         type: String,
         required: true
     }
-});
+})
 
-export default mongoose.model<IUser>('acl_user', UserSchema, 'acl_user');
+export default mongoose.model<IUser>('user', UserSchema, 'acl_user')

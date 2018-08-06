@@ -1,9 +1,9 @@
-import mongoose from '../../../config/db';
-import { Schema } from '../../../config/db';
+import mongoose from '../../../config/db'
+import { Schema } from '../../../config/db'
 
 export interface IResource extends mongoose.Document {
-    name: String;
-    pId: String;
+    name: String
+    pId: String
 }
 
 export const ResourceSchema = new Schema({
@@ -14,6 +14,6 @@ export const ResourceSchema = new Schema({
     pId: {
         type: String
     }
-});
+})
 
-export default mongoose.model<IResource>('acl_resource', ResourceSchema, 'acl_resource');
+export default mongoose.model<IResource>('resource', ResourceSchema, 'acl_resource')

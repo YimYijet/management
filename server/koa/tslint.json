@@ -21,11 +21,6 @@
             "single",
             "avoid-escape"
         ],
-        "semicolon": [
-            true,
-            "always",
-            "ignore-bound-class-methods"
-        ],
         "whitespace": [
             true,
             "check-branch",

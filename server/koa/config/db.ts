@@ -1,54 +1,54 @@
-import * as mongoose from 'mongoose';
-import * as mongodb from 'mongodb';
-import * as session from 'koa-session';
-import AclInstance from '../lib/acl';
+import * as mongoose from 'mongoose'
+import * as mongodb from 'mongodb'
+import * as session from 'koa-session'
+import AclInstance from '../lib/acl'
 
 interface Opts {
-    url: string;
-    db?: string;
-    collection?: string;
-    maxAge?: number;
-    options?: mongodb.MongoClientOptions;
+    url: string
+    db?: string
+    collection?: string
+    maxAge?: number
+    options?: mongodb.MongoClientOptions
 }
 
 export const dbPath: Opts = {
     url: 'mongodb://localhost:27017',
     db: 'test'
-};
+}
 
 mongoose.connect(`${dbPath.url}/${dbPath.db}`, {
     useNewUrlParser: true
 }, (err) => {
     if (err) {
-        console.log(err);
+        console.log(err)
     } else {
-        AclInstance.setAcl(mongoose.connection.db);
+        AclInstance.setAcl(mongoose.connection.db)
     }
-});
+})
 
 export class Schema extends mongoose.Schema {
     constructor(definition: mongoose.SchemaDefinition) {
         super(definition, {
             toObject: {
                 transform(doc: any, ret: any) {
-                    ret.id = doc.id;
-                    delete ret._id;
-                    return ret;
+                    ret.id = doc.id
+                    delete ret._id
+                    return ret
                 }
             },
             versionKey: false
-        });
+        })
     }
 }
 
 // 参考：https://github.com/mcdyzg/koa-session-mongo2
 export class MongoStore {
-    client: mongodb.MongoClient;
-    db: mongodb.Db;
-    coll: mongodb.Collection;
+    client: mongodb.MongoClient
+    db: mongodb.Db
+    coll: mongodb.Collection
 
     constructor(opts: Opts) {
-        this.init(opts);
+        this.init(opts)
     }
 
     async init({ url, db, collection, maxAge, options }: Opts = {
@@ -57,25 +57,25 @@ export class MongoStore {
         maxAge: 86400   // 1 day
     }) {
         try {
-            this.client = await mongodb.MongoClient.connect(url, options);
-            this.db = await this.client.db(db);
-            this.coll = await this.db.collection(collection);
+            this.client = await mongodb.MongoClient.connect(url, options)
+            this.db = await this.client.db(db)
+            this.coll = await this.db.collection(collection)
             try {
-                await this.coll.indexExists(['access_idx']);
+                await this.coll.indexExists(['access_idx'])
             } catch (e) {
-                await this.coll.createIndex({'lastAccess': 1}, {name: 'access_idx', expireAfterSeconds: maxAge});
+                await this.coll.createIndex({'lastAccess': 1}, {name: 'access_idx', expireAfterSeconds: maxAge})
             }
         } catch (e) {
-            console.log(e);
+            console.log(e)
         }
     }
 
     async get(key: string) {
         try {
-            const doc = await this.coll.findOne({ sid: key });
-            return doc ? doc.session : undefined;
+            const doc = await this.coll.findOne({ sid: key })
+            return doc ? doc.session : undefined
         } catch (e) {
-            console.log(e);
+            console.log(e)
         }
     }
 
@@ -87,20 +87,20 @@ export class MongoStore {
                     'session': sess,
                     'lastAccess': new Date()
                 }
-            }, { upsert: true });
+            }, { upsert: true })
         } catch (e) {
-            console.log(e);
+            console.log(e)
         }
-        return key;
+        return key
     }
 
     async destroy(key: string) {
         try {
-            await this.coll.deleteOne({ sid: key });
+            await this.coll.deleteOne({ sid: key })
         } catch (e) {
-            console.log(e);
+            console.log(e)
         }
     }
 }
 
-export default mongoose;
+export default mongoose
