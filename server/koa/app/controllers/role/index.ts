@@ -4,7 +4,7 @@ import service from '../../services/role'
 
 class RoleController {
     // 获取全部角色列表
-    async getRoleList(ctx: Context): Promise<void> {
+    static async getRoleList(ctx: Context): Promise<void> {
         try {
             const roleList: Array<IRole> = await service.find()
             ctx.body = {
@@ -22,7 +22,7 @@ class RoleController {
         }
     }
     // 添加角色
-    async addRole(ctx: Context): Promise<void> {
+    static async addRole(ctx: Context): Promise<void> {
         try {
             const item: IRole = <IRole>ctx.request.body,
                 role: IRole = await service.findOne({ name: item.name })
@@ -50,7 +50,7 @@ class RoleController {
         }
     }
     // 删除角色
-    async deleteRole(ctx: Context): Promise<void> {
+    static async deleteRole(ctx: Context): Promise<void> {
         try {
             const result: any = await service.remove({ id: ctx.params.id })
             if (result.ok) {
@@ -76,7 +76,7 @@ class RoleController {
         }
     }
     // 更新角色
-    async updateRole(ctx: Context): Promise<void> {
+    static async updateRole(ctx: Context): Promise<void> {
         try {
             const roleId: string = ctx.params.id,
                 item: any = ctx.request.body,
@@ -104,7 +104,7 @@ class RoleController {
         }
     }
     // 查询角色
-    async getRoleById(ctx: Context): Promise<void> {
+    static async getRoleById(ctx: Context): Promise<void> {
         try {
             const roleId: string = ctx.params.id,
                 role: IRole = await service.findById(roleId)
@@ -123,4 +123,4 @@ class RoleController {
         }
     }
 }
-export default new RoleController()
+export default RoleController

@@ -42,6 +42,7 @@ export class Schema extends mongoose.Schema {
 }
 
 // 参考：https://github.com/mcdyzg/koa-session-mongo2
+// session 持久化
 export class MongoStore {
     client: mongodb.MongoClient
     db: mongodb.Db
@@ -60,10 +61,11 @@ export class MongoStore {
             this.client = await mongodb.MongoClient.connect(url, options)
             this.db = await this.client.db(db)
             this.coll = await this.db.collection(collection)
+            // 创建ttl索引，MongoDB提供自动删除过期数据
             try {
                 await this.coll.indexExists(['access_idx'])
             } catch (e) {
-                await this.coll.createIndex({'lastAccess': 1}, {name: 'access_idx', expireAfterSeconds: maxAge})
+                await this.coll.createIndex({ 'lastAccess': 1 }, { name: 'access_idx', expireAfterSeconds: maxAge })
             }
         } catch (e) {
             console.log(e)

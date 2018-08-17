@@ -1,4 +1,5 @@
 import { Context } from 'koa'
+import * as jwt from 'jsonwebtoken'
 import * as util from '../../../lib/util'
 import { IUser } from '../../models/user'
 import userService from '../../services/user'
@@ -6,7 +7,7 @@ import aclInstance from '../../../lib/acl'
 
 class LoginController {
     // 登录
-    async login(ctx: Context): Promise<void> {
+    static async login(ctx: Context): Promise<void> {
         try {
             const query: any = ctx.request.body
             query.password = util.encrypt(query.password)
@@ -37,7 +38,7 @@ class LoginController {
         }
     }
     // 登出
-    async logout(ctx: Context): Promise<void> {
+    static async logout(ctx: Context): Promise<void> {
         try {
             delete ctx.session.curUser
             delete ctx.session.curUserId
@@ -58,4 +59,4 @@ class LoginController {
     }
 }
 
-export default new LoginController()
+export default LoginController

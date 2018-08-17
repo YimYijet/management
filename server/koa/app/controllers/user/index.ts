@@ -12,7 +12,7 @@ type Values = Value | Value[]
 
 class UserController {
     // 获取全部用户列表
-    async getUserList(ctx: Context): Promise<void> {
+    static async getUserList(ctx: Context): Promise<void> {
         try {
             const userList: Array<IUser> = await service.find()
             ctx.body = {
@@ -30,7 +30,7 @@ class UserController {
         }
     }
     // 添加用户
-    async addUser(ctx: Context): Promise<void> {
+    static async addUser(ctx: Context): Promise<void> {
         try {
             const item: IUser = <IUser>ctx.request.body,
                 user: IUser = await service.findOne({ account: item.account })
@@ -59,7 +59,7 @@ class UserController {
         }
     }
     // 删除用户
-    async deleteUser(ctx: Context): Promise<void> {
+    static async deleteUser(ctx: Context): Promise<void> {
         try {
             const result: any = await service.remove({ id: ctx.params.id })
             if (result.ok) {
@@ -85,7 +85,7 @@ class UserController {
         }
     }
     // 更新用户
-    async updateUser(ctx: Context): Promise<void> {
+    static async updateUser(ctx: Context): Promise<void> {
         try {
             const userId: string = ctx.params.id,
                 item: any = ctx.request.body
@@ -117,7 +117,7 @@ class UserController {
         }
     }
     // 查询用户
-    async getUserById(ctx: Context): Promise<void> {
+    static async getUserById(ctx: Context): Promise<void> {
         try {
             const userId: string = ctx.params.id,
                 user: IUser = await service.findById(userId)
@@ -136,7 +136,7 @@ class UserController {
         }
     }
     // 绑定角色
-    async bindRole(ctx: Context): Promise<void> {
+    static async bindRole(ctx: Context): Promise<void> {
         const userId: Value = <Value>ctx.params.id,
             roles: strings = <strings>ctx.request.body,
             user: IUser = await service.findById(userId)
@@ -145,4 +145,4 @@ class UserController {
         }
     }
 }
-export default new UserController()
+export default UserController

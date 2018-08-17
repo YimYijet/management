@@ -4,7 +4,7 @@ import service from '../../services/resource'
 
 class ResourceController {
     // 获取全部资源列表
-    async getResourceList(ctx: Context): Promise<void> {
+    static async getResourceList(ctx: Context): Promise<void> {
         try {
             const resourceList: Array<IResource> = await service.find()
             ctx.body = {
@@ -22,7 +22,7 @@ class ResourceController {
         }
     }
     // 添加资源
-    async addResource(ctx: Context): Promise<void> {
+    static async addResource(ctx: Context): Promise<void> {
         try {
             const item: IResource = <IResource>ctx.request.body,
                 resource: IResource = await service.findOne({ name: item.name })
@@ -50,7 +50,7 @@ class ResourceController {
         }
     }
     // 删除资源
-    async deleteResource(ctx: Context): Promise<void> {
+    static async deleteResource(ctx: Context): Promise<void> {
         try {
             const result: any = await service.remove({ id: ctx.params.id })
             if (result.ok) {
@@ -76,7 +76,7 @@ class ResourceController {
         }
     }
     // 更新资源
-    async updateResource(ctx: Context): Promise<void> {
+    static async updateResource(ctx: Context): Promise<void> {
         try {
             const resourceId: string = ctx.params.id,
                 item: any = ctx.request.body,
@@ -104,7 +104,7 @@ class ResourceController {
         }
     }
     // 查询资源
-    async getResourceById(ctx: Context): Promise<void> {
+    static async getResourceById(ctx: Context): Promise<void> {
         try {
             const resourceId: string = ctx.params.id,
                 resource: IResource = await service.findById(resourceId)
@@ -123,4 +123,4 @@ class ResourceController {
         }
     }
 }
-export default new ResourceController()
+export default ResourceController
