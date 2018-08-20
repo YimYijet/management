@@ -2,7 +2,7 @@ import mongoose from '../../../config/db'
 import { Schema } from '../../../config/db'
 
 export interface IRole extends mongoose.Document {
-    name: String
+    name: string
 }
 
 export const RoleSchema = new Schema({

@@ -52,7 +52,7 @@ class ResourceController {
     // 删除资源
     static async deleteResource(ctx: Context): Promise<void> {
         try {
-            const result: any = await service.remove({ id: ctx.params.id })
+            const result: any = await service.remove({ _id: ctx.params.id })
             if (result.ok) {
                 ctx.body = {
                     code: 200,

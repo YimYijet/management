@@ -16,15 +16,21 @@ export const dbPath: Opts = {
     db: 'test'
 }
 
-mongoose.connect(`${dbPath.url}/${dbPath.db}`, {
-    useNewUrlParser: true
-}, (err) => {
-    if (err) {
-        console.log(err)
-    } else {
-        AclInstance.setAcl(mongoose.connection.db)
-    }
-})
+export function connectDB(): Promise<void> {
+    return new Promise((resolve, reject) => {
+        mongoose.connect(`${dbPath.url}/${dbPath.db}`, {
+            useNewUrlParser: true
+        }, (err) => {
+            if (err) {
+                console.log(err)
+                reject(err)
+            } else {
+                AclInstance.setAcl(mongoose.connection.db)
+                resolve()
+            }
+        })
+    })
+}
 
 export class Schema extends mongoose.Schema {
     constructor(definition: mongoose.SchemaDefinition) {

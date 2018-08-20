@@ -13,6 +13,9 @@ router.delete('/:id', ctrl.deleteUser)
 
 router.put('/:id', ctrl.updateUser)
 
-router.post('/:id/roles', ctrl.bindRole)
+router.post('/:id/roles', ctrl.bindRoles)
 
+router.get('/:id/roles', ctrl.getRoles)
+
+router.get('/:id/resources', ctrl.getResources)
 export default router

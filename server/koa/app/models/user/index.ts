@@ -2,9 +2,9 @@ import mongoose from '../../../config/db'
 import { Schema } from '../../../config/db'
 
 export interface IUser extends mongoose.Document {
-    account: String
-    password: String
-    name: String
+    account: string
+    password: string
+    name: string
 }
 
 export const UserSchema = new Schema({

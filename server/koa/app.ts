@@ -11,7 +11,7 @@ import * as env from './config/env'
 import * as util from './lib/util'
 import router from './app/routers'
 import * as middleware from './lib/middleware'
-import { dbPath, MongoStore } from './config/db'
+import { connectDB, dbPath, MongoStore } from './config/db'
 
 const app = new koa()
 
@@ -43,7 +43,10 @@ app.use(session({ store: new MongoStore({
 app.use(bodyParser())
 // 自定义中间件
 // app.use(compose([middleware.intercept]))
-// 路由加载
-app.use(router.routes())
+// 链接数据库
+connectDB().then(() => {
+    // 路由加载
+    app.use(router.routes())
+})
 
 app.listen(env.port)

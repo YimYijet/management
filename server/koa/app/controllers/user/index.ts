@@ -3,8 +3,8 @@ import * as util from '../../../lib/util'
 import aclInstance from '../../../lib/acl'
 import { IUser } from '../../models/user'
 import service from '../../services/user'
-import { IRole } from '../../models/role'
-import roleService from '../../services/role'
+import { IResource } from '../../models/resource';
+import ResourceService from '../../services/resource';
 
 type strings = string | string[]
 type Value = string | number
@@ -61,7 +61,7 @@ class UserController {
     // 删除用户
     static async deleteUser(ctx: Context): Promise<void> {
         try {
-            const result: any = await service.remove({ id: ctx.params.id })
+            const result: any = await service.remove({ _id: ctx.params.id })
             if (result.ok) {
                 ctx.body = {
                     code: 200,
@@ -136,12 +136,70 @@ class UserController {
         }
     }
     // 绑定角色
-    static async bindRole(ctx: Context): Promise<void> {
-        const userId: Value = <Value>ctx.params.id,
-            roles: strings = <strings>ctx.request.body,
-            user: IUser = await service.findById(userId)
-        if (user) {
-            await aclInstance.getAcl().addUserRoles(userId, roles)
+    static async bindRoles(ctx: Context): Promise<void> {
+        try {
+            const userId: string = <string>ctx.params.id,
+                roles: strings = <strings>ctx.request.body,
+                userRoles: strings = await aclInstance.getAcl().userRoles(userId)
+                if (userRoles.length) {
+                    await aclInstance.getAcl().removeUserRoles(userId, userRoles)
+                }
+                await aclInstance.getAcl().addUserRoles(userId, roles)
+            ctx.body = {
+                code: 200,
+                message: '请求成功',
+                content: roles
+            }
+        } catch (e) {
+            console.log(e)
+            ctx.body = {
+                code: 500,
+                message: '服务器错误',
+                content: {}
+            }
+        }
+    }
+    // 查询角色
+    static async getRoles(ctx: Context): Promise<void> {
+        try {
+            const userId: string = <string>ctx.params.id,
+                roles: strings = await aclInstance.getAcl().userRoles(userId)
+            ctx.body = {
+                code: 200,
+                message: '请求成功',
+                content: roles
+            }
+        } catch (e) {
+            console.log(e)
+            ctx.body = {
+                code: 500,
+                message: '服务器错误',
+                content: {}
+            }
+        }
+    }
+    // 查询资源
+    static async getResources(ctx: Context): Promise<void> {
+        try {
+            const userId: string = <string>ctx.params.id,
+                resourceList: Array <IResource> = await ResourceService.find(),
+                allResources: strings = []
+            resourceList.forEach(item => {
+                allResources.push(item.name)
+            })
+            const resouces: Object = await aclInstance.getAcl().allowedPermissions(userId, resourceList)
+            ctx.body = {
+                code: 200,
+                message: '请求成功',
+                content: resouces
+            }
+        } catch (e) {
+            console.log(e)
+            ctx.body = {
+                code: 500,
+                message: '服务器错误',
+                content: {}
+            }
         }
     }
 }

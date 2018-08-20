@@ -13,13 +13,17 @@ class LoginController {
             query.password = util.encrypt(query.password)
             const user: IUser = await userService.findOne(query)
             if (user) {
-                ctx.session.roles = await aclInstance.getAcl().userRoles()
-                ctx.session.curUserId = user.id
-                ctx.session.curUser = user
+                const roles = await aclInstance.getAcl().userRoles(),
+                    token = jwt.sign(
+                        {
+                            user: user,
+                            roles: roles
+                        }, util.getSecret())
+                ctx.session.token = token
                 ctx.body = {
                     code: 200,
                     message: '请求成功',
-                    content: user
+                    content: token
                 }
             } else {
                 ctx.body = {
@@ -40,9 +44,7 @@ class LoginController {
     // 登出
     static async logout(ctx: Context): Promise<void> {
         try {
-            delete ctx.session.curUser
-            delete ctx.session.curUserId
-            delete ctx.session.roles
+            delete ctx.session.token
             ctx.body = {
                 code: 200,
                 message: '请求成功',
