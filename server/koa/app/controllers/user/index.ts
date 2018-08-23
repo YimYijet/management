@@ -9,6 +9,7 @@ import ResourceService from '../../services/resource';
 type strings = string | string[]
 type Value = string | number
 type Values = Value | Value[]
+type resources = Object | any
 
 class UserController {
     // 获取全部用户列表
@@ -187,7 +188,7 @@ class UserController {
             resourceList.forEach(item => {
                 allResources.push(item.name)
             })
-            const resouces: Object = await aclInstance.getAcl().allowedPermissions(userId, resourceList)
+            const resouces: resources = await aclInstance.getAcl().allowedPermissions(userId, allResources)
             ctx.body = {
                 code: 200,
                 message: '请求成功',

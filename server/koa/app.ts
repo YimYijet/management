@@ -7,6 +7,8 @@ import * as serve from 'koa-static'
 import * as path from 'path'
 import * as views from 'koa-views'
 import * as jwt from 'koa-jwt'
+import * as http from 'http'
+// import * as https from 'https'
 import * as env from './config/env'
 import * as util from './lib/util'
 import router from './app/routers'
@@ -20,8 +22,8 @@ const secret = util.getSecret()
 // cookie加密key
 app.keys = [secret]
 // jwt加密过滤
-app.use(jwt({secret}).unless({
-    path: [/^\/login|^\//]
+app.use(jwt({ secret: secret }).unless({
+    path: [/^\/login|^\/static|^\/$/]
 }))
 // 请求，响应日志
 app.use(logger())
@@ -42,11 +44,19 @@ app.use(session({ store: new MongoStore({
 // 请求数据解析
 app.use(bodyParser())
 // 自定义中间件
-// app.use(compose([middleware.intercept]))
+app.use(compose([middleware.intercept]))
 // 链接数据库
 connectDB().then(() => {
     // 路由加载
     app.use(router.routes())
 })
 
-app.listen(env.port)
+http.createServer(app.callback()).listen(env.httpPort, () => {
+    console.log(`http server listening on port: ${env.httpPort}`)
+})
+
+// https.createServer({
+    
+// }, app.callback()).listen(env.httpsPort, () => {
+//     console.log(`https server listening on port: ${env.httpsPort}`)
+// })

@@ -59,7 +59,7 @@ export class MongoStore {
     }
 
     async init({ url, db, collection, maxAge, options }: Opts = {
-        url: 'mongodb://localhost:27017',
+        url: dbPath.url,
         collection: 'sessions',
         maxAge: 86400   // 1 day
     }) {

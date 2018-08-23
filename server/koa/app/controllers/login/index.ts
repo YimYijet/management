@@ -3,6 +3,7 @@ import * as jwt from 'jsonwebtoken'
 import * as util from '../../../lib/util'
 import { IUser } from '../../models/user'
 import userService from '../../services/user'
+import roleService from '../../services/role'
 import aclInstance from '../../../lib/acl'
 
 class LoginController {
@@ -13,17 +14,24 @@ class LoginController {
             query.password = util.encrypt(query.password)
             const user: IUser = await userService.findOne(query)
             if (user) {
-                const roles = await aclInstance.getAcl().userRoles(),
-                    token = jwt.sign(
-                        {
-                            user: user,
-                            roles: roles
-                        }, util.getSecret())
+                const roleId: string = await aclInstance.getAcl().userRoles(user.id)
+                const [role, resources] = await Promise.all([
+                        roleService.findById(roleId),
+                        aclInstance.getAcl().whatResources(roleId)
+                    ]),
+                    token = jwt.sign({
+                        user: user,
+                        roles: role,
+                        resources: resources
+                    }, util.getSecret())
                 ctx.session.token = token
                 ctx.body = {
                     code: 200,
                     message: '请求成功',
-                    content: token
+                    content: {
+                        token: token,
+                        userId: user.id
+                    }
                 }
             } else {
                 ctx.body = {
