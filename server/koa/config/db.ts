@@ -62,7 +62,7 @@ export class MongoStore {
         url: dbPath.url,
         collection: 'sessions',
         maxAge: 86400   // 1 day
-    }) {
+    }): Promise<void> {
         try {
             this.client = await mongodb.MongoClient.connect(url, options)
             this.db = await this.client.db(db)
@@ -78,7 +78,7 @@ export class MongoStore {
         }
     }
 
-    async get(key: string) {
+    async get(key: string): Promise<void> {
         try {
             const doc = await this.coll.findOne({ sid: key })
             return doc ? doc.session : undefined
@@ -87,7 +87,7 @@ export class MongoStore {
         }
     }
 
-    async set(key: string, sess: session.Session) {
+    async set(key: string, sess: session.Session): Promise<string> {
         try {
             await this.coll.updateOne({ 'sid': key }, {
                 $set: {
@@ -102,7 +102,7 @@ export class MongoStore {
         return key
     }
 
-    async destroy(key: string) {
+    async destroy(key: string): Promise<void> {
         try {
             await this.coll.deleteOne({ sid: key })
         } catch (e) {

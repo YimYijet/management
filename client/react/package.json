@@ -1,0 +1,31 @@
+{
+  "name": "react-client",
+  "version": "1.0.0",
+  "description": "react with typescript",
+  "main": "index.js",
+  "scripts": {
+    "dev": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react",
+    "typescript"
+  ],
+  "author": "yimyijet@163.com",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/react": "^16.4.12",
+    "@types/react-dom": "^16.0.7",
+    "@types/react-router": "^4.0.30",
+    "@types/redux": "^3.6.0",
+    "ts-loader": "^4.5.0",
+    "typescript": "^3.0.1",
+    "webpack": "^4.17.1"
+  },
+  "dependencies": {
+    "antd": "^3.8.4",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-router": "^4.3.1",
+    "redux": "^4.0.0"
+  }
+}
