@@ -1,9 +1,9 @@
 import { Context } from 'koa'
 import aclInstance from '../../../lib/acl'
+import { IResource } from '../../models/resource'
 import { IRole } from '../../models/role'
+import ResourceService from '../../services/resource'
 import service from '../../services/role'
-import { IResource } from '../../models/resource';
-import ResourceService from '../../services/resource';
 
 type strings = string | string[]
 type Value = string | number
@@ -11,166 +11,166 @@ type Values = Value | Value[]
 
 class RoleController {
     // 获取全部角色列表
-    static async getRoleList(ctx: Context): Promise<void> {
+    public static async getRoleList(ctx: Context): Promise<void> {
         try {
-            const roleList: Array<IRole> = await service.find()
+            const roleList: IRole[] = await service.find()
             ctx.body = {
                 code: 200,
+                content: roleList,
                 message: '请求成功',
-                content: roleList
             }
         } catch (e) {
             console.log(e)
             ctx.body = {
                 code: 500,
+                content: [],
                 message: '服务器错误',
-                content: []
             }
         }
     }
     // 添加角色
-    static async addRole(ctx: Context): Promise<void> {
+    public static async addRole(ctx: Context): Promise<void> {
         try {
-            const item: IRole = <IRole>ctx.request.body,
+            const item: IRole = ctx.request.body as IRole,
                 role: IRole = await service.findOne({ name: item.name })
             if (!role) {
-                const role = await service.create(item)
+                const newRole = await service.create(item)
                 ctx.body = {
                     code: 200,
+                    content: newRole,
                     message: '请求成功',
-                    content: role
                 }
             } else {
                 ctx.body = {
                     code: 400,
+                    content: {},
                     message: '角色已存在',
-                    content: {}
                 }
             }
         } catch (e) {
             console.log(e)
             ctx.body = {
                 code: 400,
+                content: {},
                 message: '错误请求',
-                content: {}
             }
         }
     }
     // 删除角色
-    static async deleteRole(ctx: Context): Promise<void> {
+    public static async deleteRole(ctx: Context): Promise<void> {
         try {
             const result: any = await service.remove({ _id: ctx.params.id })
             if (result.ok) {
                 ctx.body = {
                     code: 200,
+                    content: {},
                     message: '请求成功',
-                    content: {}
                 }
             } else {
                 ctx.body = {
                     code: 400,
+                    content: {},
                     message: '错误请求',
-                    content: {}
                 }
             }
         } catch (e) {
             console.log(e)
             ctx.body = {
                 code: 500,
+                content: {},
                 message: '服务器错误',
-                content: {}
             }
         }
     }
     // 更新角色
-    static async updateRole(ctx: Context): Promise<void> {
+    public static async updateRole(ctx: Context): Promise<void> {
         try {
-            const roleId: string = ctx.params.id,
+            const roleId: string = ctx.params.id as string,
                 item: any = ctx.request.body,
                 role: IRole = await service.update({ _id: roleId }, item)
             if (role) {
                 ctx.body = {
                     code: 200,
+                    content: role,
                     message: '请求成功',
-                    content: role
                 }
             } else {
                 ctx.body = {
                     code: 400,
+                    content: {},
                     message: '错误请求',
-                    content: {}
                 }
             }
         } catch (e) {
             console.log(e)
             ctx.body = {
                 code: 500,
+                content: {},
                 message: '服务器错误',
-                content: {}
             }
         }
     }
     // 查询角色
-    static async getRoleById(ctx: Context): Promise<void> {
+    public static async getRoleById(ctx: Context): Promise<void> {
         try {
-            const roleId: string = ctx.params.id,
+            const roleId: string = ctx.params.id as string,
                 role: IRole = await service.findById(roleId)
             ctx.body = {
                 code: 200,
+                content: role || {},
                 message: '请求成功',
-                content: role || {}
             }
         } catch (e) {
             console.log(e)
             ctx.body = {
                 code: 500,
+                content: {},
                 message: '服务器错误',
-                content: {}
             }
         }
     }
     // 绑定资源
-    static async bindResources(ctx: Context): Promise<void> {
+    public static async bindResources(ctx: Context): Promise<void> {
         try {
-            const roleId: string = <string>ctx.params.id,
-                resources: strings = <strings>ctx.request.body,
-                resourceList: Array<IResource> = await ResourceService.find(),
+            const roleId: string = ctx.params.id as string,
+                resources: strings = ctx.request.body as strings,
+                resourceList: IResource[] = await ResourceService.find(),
                 allResources: strings = []
-            resourceList.forEach(item => {
+            resourceList.forEach((item) => {
                 allResources.push(item.name)
             })
             await aclInstance.getAcl().removeAllow(roleId, allResources, '*')
             await aclInstance.getAcl().allow(roleId, resources, '*')
             ctx.body = {
                 code: 200,
+                content: resources,
                 message: '请求成功',
-                content: resources
             }
         } catch (e) {
             console.log(e)
             ctx.body = {
                 code: 500,
+                content: {},
                 message: '服务器错误',
-                content: {}
             }
         }
     }
     // 查询资源
-    static async getResources(ctx: Context): Promise<void> {
+    public static async getResources(ctx: Context): Promise<void> {
         try {
-            const roleId: string = <string>ctx.params.id,
+            const roleId: string = ctx.params.id as string,
                 resources: strings = await aclInstance.getAcl().whatResources(roleId)
             ctx.body = {
                 code: 200,
+                content: resources,
                 message: '请求成功',
-                content: resources
             }
         } catch (e) {
             console.log(e)
             ctx.body = {
                 code: 500,
+                content: {},
                 message: '服务器错误',
-                content: {}
             }
         }
     }

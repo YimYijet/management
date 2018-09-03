@@ -1,5 +1,5 @@
-import ctrl from '../../controllers/oauth'
 import * as Router from 'koa-router'
+import ctrl from '../../controllers/oauth'
 
 const router = new Router()
 

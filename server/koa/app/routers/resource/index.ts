@@ -1,5 +1,5 @@
-import ctrl from '../../controllers/resource'
 import * as Router from 'koa-router'
+import ctrl from '../../controllers/resource'
 
 const router = new Router()
 

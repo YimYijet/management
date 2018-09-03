@@ -8,12 +8,12 @@ export interface IResource extends mongoose.Document {
 
 export const ResourceSchema = new Schema({
     name: {
+        required: true,
         type: String,
-        required: true
     },
     pId: {
-        type: String
-    }
+        type: String,
+    },
 })
 
 export default mongoose.model<IResource>('resource', ResourceSchema, 'acl_resource')

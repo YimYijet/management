@@ -10,23 +10,23 @@ export interface IClient extends mongoose.Document {
 }
 
 export const ClientSchema = new Schema({
-    id: {
-        type: String,
-        required: true
+    accessTokenLifetime: {
+        type: Number,
     },
     grants: {
+        required: true,
         type: Array,
-        required: true
+    },
+    id: {
+        required: true,
+        type: String,
     },
     redirectUris: {
         type: Array,
     },
-    accessTokenLifetime: {
-        type: Number
-    },
     refreshTokenLifetime: {
-        type: Number
-    }
+        type: Number,
+    },
 })
 
 export default mongoose.model<IClient>('client', ClientSchema, 'oauth_client')

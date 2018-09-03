@@ -1,5 +1,5 @@
-import ctrl from '../../controllers/user'
 import * as Router from 'koa-router'
+import ctrl from '../../controllers/user'
 
 const router = new Router()
 
@@ -18,4 +18,5 @@ router.post('/:id/roles', ctrl.bindRoles)
 router.get('/:id/roles', ctrl.getRoles)
 
 router.get('/:id/resources', ctrl.getResources)
+
 export default router

@@ -9,17 +9,17 @@ export interface IUser extends mongoose.Document {
 
 export const UserSchema = new Schema({
     account: {
+        required: true,
         type: String,
-        required: true
-    },
-    password: {
-        type: String,
-        required: true
     },
     name: {
+        required: true,
         type: String,
-        required: true
-    }
+    },
+    password: {
+        required: true,
+        type: String,
+    },
 })
 
 export default mongoose.model<IUser>('user', UserSchema, 'acl_user')

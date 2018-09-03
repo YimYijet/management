@@ -1,5 +1,8 @@
 {
+    "extends": ["tslint:recommended"],
     "rules": {
+        "no-console": false,
+        "one-variable-per-declaration": false,
         "class-name": true,
         "comment-format": [
             true,
@@ -51,6 +54,7 @@
         "no-trailing-whitespace": true,
         "no-null-keyword": true,
         "prefer-const": true,
-        "jsdoc-format": true
+        "jsdoc-format": true,
+        "semicolon": [true, "never"]
     }
 }

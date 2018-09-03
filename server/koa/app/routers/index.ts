@@ -1,5 +1,6 @@
-import * as Router from 'koa-router'
 import * as mount from 'koa-mount'
+import * as Router from 'koa-router'
+
 const router = new Router()
 
 // 主页

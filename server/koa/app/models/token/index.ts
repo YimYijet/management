@@ -1,7 +1,7 @@
 import mongoose from '../../../config/db'
 import { Schema } from '../../../config/db'
-import { IUser } from '../user'
 import { IClient } from '../client'
+import { IUser } from '../user'
 
 export interface IToken extends mongoose.Document {
     accessToken: string
@@ -15,19 +15,15 @@ export interface IToken extends mongoose.Document {
 
 export const TokenSchema = new Schema({
     accessToken: {
+        required: true,
         type: String,
-        required: true
-    },
-    client: {
-        type: Object,
-        required: true
-    },
-    user: {
-        type: Object,
-        required: true
     },
     accessTokenExpiresAt: {
         type: Date,
+    },
+    client: {
+        required: true,
+        type: Object,
     },
     refreshToken: {
         type: String,
@@ -37,7 +33,11 @@ export const TokenSchema = new Schema({
     },
     scope: {
         type: String,
-    }
+    },
+    user: {
+        required: true,
+        type: Object,
+    },
 })
 
 export default mongoose.model<IToken>('token', TokenSchema, 'oauth_token')

@@ -1,7 +1,7 @@
 import { Context } from 'koa'
 
 class HomeController {
-    static async home(ctx: Context): Promise<void> {
+    public static async home(ctx: Context): Promise<void> {
         ctx.type = 'html'
         await ctx.render('index.html')
     }
