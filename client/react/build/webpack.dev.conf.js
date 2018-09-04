@@ -6,12 +6,12 @@ const config = {
     devtool: 'eval-source-map',
     devServer: {
         host: 'localhost',
-        port: '3344',
+        port: '3000',
         open: true,
         hot: true,
         proxy: {
             '/api': {
-                target: 'http://localhost:3000/'
+                target: 'http://localhost:3344/'
             },
             changeOrigin: true
         }
@@ -20,7 +20,7 @@ const config = {
         new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
             filename: 'index.html',
-            template: path.join(__dirname, './client/index.html'),
+            template: path.join(__dirname, './index.html'),
         }),
     ]
 }

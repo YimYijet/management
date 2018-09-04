@@ -47,15 +47,15 @@ app.use(bodyParser())
 // 自定义中间件
 app.use(compose([middleware.intercept]))
 // 链接数据库
+console.log('connecting database')
 connectDB().then(() => {
+    console.log('database connected')
     // 路由加载
     app.use(router.routes())
+    http.createServer(app.callback()).listen(env.httpPort, () => {
+        console.log(`http server listening on port: ${env.httpPort}`)
+    })
+    // https.createServer({}, app.callback()).listen(env.httpsPort, () => {
+    //     console.log(`https server listening on port: ${env.httpsPort}`)
+    // })
 })
-
-http.createServer(app.callback()).listen(env.httpPort, () => {
-    console.log(`http server listening on port: ${env.httpPort}`)
-})
-
-// https.createServer({}, app.callback()).listen(env.httpsPort, () => {
-//     console.log(`https server listening on port: ${env.httpsPort}`)
-// })

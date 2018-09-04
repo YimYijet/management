@@ -1,11 +1,6 @@
 const path = require('path')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-
-// 提取 .vue下的样式合并到一个文件
-const extractVueStyle = new ExtractTextPlugin({
-    filename: 'css/[name].vue.[hash:5].css',
-    allChunks: true
-})
+const tsImportPluginFactory = require('ts-import-plugin')
 
 const extractCss = new ExtractTextPlugin({
     fileName: 'css/[name].[hash:5].css',
@@ -18,47 +13,53 @@ const extractSass = new ExtractTextPlugin({
 })
 const config = {
     entry: {
-        index: path.join(__dirname, './client/src/main.js')
+        index: path.join(__dirname, './src/index.tsx')
     },
     output: {
         publicPath: '/',
-        path: path.join(__dirname, './client/dist'),
+        path: path.join(__dirname, './dist'),
         filename: 'js/[name].[hash].js',
         chunkFilename: 'js/[name].[chunkhash].js'
     },
     resolve: {
-        extensions: ['.js', '.vue', '.json'],
+        extensions: ['.ts', '.tsx', '.jsx', '.js'
+            , '.json'
+        ],
         alias: {
-            'Vue': 'vue/dist/vue.esm.js',
             '@': path.join(__dirname, '..', 'src')
         }
     },
     module: {
         rules: [
             {
-                test: /\.vue$/,
-                loader: 'vue-loader',
-                options: {
-                    loaders: {
-                        css: extractVueStyle.extract({
-                            use: 'css-loader',
-                            fallback: 'vue-style-loader'
+                test: /\.(ts(x?)|js(x?))$/,
+                use: [{
+                    loader: 'awesome-typescript-loader',
+                    options: {
+                        transpileOnly: true,
+                        useCache: true,
+                        useBabel: true,
+                        babelOptions: {
+                            babelrc: false,
+                            plugins: ['transform-class-properties', 'syntax-dynamic-import', 'react-hot-loader/babel']
+                        },
+                        getCustomTransformers: () => ({
+                            before: [
+                                tsImportPluginFactory({
+                                    libraryName: 'antd',
+                                    libraryDirectory: 'lib',
+                                    style: true
+                                })
+                            ]
                         })
-                    },
-                    postLoaders: {
-                        html: 'babel-loader'
                     }
-                }
-            },
-            {
-                test: /\.js$/,
-                loader: 'babel-loader',
-                include: path.join(__dirname, './client/src'),
+                }],
+                include: path.join(__dirname, './src'),
                 exclude: /node_modules/
             },
             {
                 test: /\.css$/,
-                exclude: path.join(__dirname, './client/styles'),
+                exclude: path.join(__dirname, './styles'),
                 loader: extractCss.extract({
                     use: [{
                             loader: 'css-loader',
@@ -68,18 +69,6 @@ const config = {
                         }
                     ],
                     fallback: 'style-loader'
-                })
-            },
-            {
-                test: /\.css$/,
-                include: path.join(__dirname, './client/styles'),
-                loader: extractVueStyle.extract({
-                    use: [ 'style-loader', 'postcss-loader', {
-                            loader: 'css-loader',
-                            options: { importLoaders: 1 }
-                        }
-                    ],
-                    fallback: 'vue-style-loader'
                 })
             },
             {
@@ -117,7 +106,6 @@ const config = {
         ]
     },
     plugins: [
-        extractVueStyle,
         extractCss,
         extractSass,
     ],

@@ -6,10 +6,10 @@ const CompressionPlugin = require("compression-webpack-plugin")
 
 const config = {
     plugins: [
-        new CleanWebpackPlugin('/client/dist'),
+        new CleanWebpackPlugin('/dist'),
         new HtmlWebpackPlugin({
             filename: 'index.html',
-            template: path.join(__dirname, './client/index.html'),
+            template: path.join(__dirname, './index.html'),
             minify: {
                 removeComments: true,
                 collapseWhitespace: true,
