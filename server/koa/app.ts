@@ -29,9 +29,9 @@ app.use(jwt({ secret }).unless({
 // 请求，响应日志
 app.use(logger())
 // 静态路径
-app.use(serve(path.join(__dirname, './public')))
+app.use(serve(path.join(__dirname, '../../..', 'client/react/dist')))
 // 模板引擎
-app.use(views(path.join(__dirname, '../../../client')))
+app.use(views(path.join(__dirname, '../../..', 'client/react/dist')))
 // 持久化session
 app.use(session({ store: new MongoStore({
     collection: 'sessions',

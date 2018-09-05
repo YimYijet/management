@@ -20,9 +20,10 @@ const config = {
         new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
             filename: 'index.html',
-            template: path.join(__dirname, './index.html'),
+            template: path.join(__dirname, '../index.html'),
         }),
-    ]
+    ],
+    mode: 'development'
 }
 
 module.exports = config

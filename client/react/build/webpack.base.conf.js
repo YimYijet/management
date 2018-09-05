@@ -1,30 +1,29 @@
 const path = require('path')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const tsImportPluginFactory = require('ts-import-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 const extractCss = new ExtractTextPlugin({
-    fileName: 'css/[name].[hash:5].css',
+    filename: 'static/css/[name].[hash:5].css',
     allChunks: true
 })
 
 const extractSass = new ExtractTextPlugin({
-    fileName: 'css/[name].sass.[hash:5].css',
+    filename: 'static/css/[name].sass.[hash:5].css',
     allChunks: true
 })
 const config = {
     entry: {
-        index: path.join(__dirname, './src/index.tsx')
+        index: path.join(__dirname, '../src/index.tsx')
     },
     output: {
         publicPath: '/',
-        path: path.join(__dirname, './dist'),
-        filename: 'js/[name].[hash].js',
-        chunkFilename: 'js/[name].[chunkhash].js'
+        path: path.join(__dirname, '../dist'),
+        filename: 'static/js/[name].[hash].js',
+        chunkFilename: 'static/js/[name].[chunkhash].js'
     },
     resolve: {
-        extensions: ['.ts', '.tsx', '.jsx', '.js'
-            , '.json'
-        ],
+        extensions: ['.ts', '.tsx', '.jsx', '.js', '.json'],
         alias: {
             '@': path.join(__dirname, '..', 'src')
         }
@@ -54,44 +53,39 @@ const config = {
                         })
                     }
                 }],
-                include: path.join(__dirname, './src'),
+                include: path.join(__dirname, '../src'),
                 exclude: /node_modules/
             },
             {
                 test: /\.css$/,
-                exclude: path.join(__dirname, './styles'),
+                exclude: path.join(__dirname, '../src/styles'),
                 loader: extractCss.extract({
                     use: [{
-                            loader: 'css-loader',
-                            options: { importLoaders: 1 }
-                        }, {
-                            loader: 'postcss-loader',
-                        }
-                    ],
+                        loader: 'css-loader',
+                        options: { importLoaders: 1 }
+                    }, {
+                        loader: 'postcss-loader',
+                    }],
                     fallback: 'style-loader'
                 })
             },
             {
                 test: /\.scss$/,
                 loader: extractSass.extract({
-                    use: [{
-                        loader: "css-loader"
-                    }, {
-                        loader: "sass-loader"
-                    }],
+                    use: ["css-loader", "sass-loader"],
                     // 在开发环境使用 style-loader
                     fallback: "style-loader"
                 })
             },
             {
                 test: /\.(png|jpe?g|gif)$/,
-                use: [{
+                use: {
                     loader: 'url-loader',
-                    option: {
+                    options: {
                         limit: 8192,        // 小于8k图片转换为base64格式
                         outputPath: 'images/'   // 图片打包后地址
                     }
-                }]
+                }
             },
             {
                 test: /\.(eot|tff|woff|svg)$/,
@@ -99,9 +93,7 @@ const config = {
             },
             {
                 test: /\.html$/,
-                use: [{
-                    loader: 'html-withimg-loader'
-                }]
+                use: 'html-withimg-loader'
             }
         ]
     },
@@ -124,7 +116,13 @@ const config = {
                     minSize: Infinity
                 }
             }
-        }
+        },
+        minimizer: [
+            new UglifyJsPlugin({
+                cache: true,
+                parallel: true
+            }),
+        ]
     }
 }
 

@@ -1,3 +1,5 @@
 /server/koa/node_modules/
 /server/koa/dist/
 /client/react/node_modules/
+/client/react/dist/
+/client/react/.*/

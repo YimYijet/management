@@ -1,15 +1,16 @@
 const path = require('path')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const CompressionPlugin = require("compression-webpack-plugin")
 
 const config = {
     plugins: [
-        new CleanWebpackPlugin('/dist'),
+        new CleanWebpackPlugin('dist/*', {
+            root: path.resolve(__dirname, '../')
+        }),
         new HtmlWebpackPlugin({
             filename: 'index.html',
-            template: path.join(__dirname, './index.html'),
+            template: path.join(__dirname, '../index.html'),
             minify: {
                 removeComments: true,
                 collapseWhitespace: true,
@@ -17,14 +18,12 @@ const config = {
             },
             chunksSortMode: 'dependency'
         }),
-        new UglifyJsPlugin({
-            parallel: true
-        }),
         new CompressionPlugin({
             test: /\.(js|css)$/,
             threshold: 10240,
         })
-    ]
+    ],
+    mode: 'production'
 }
 
 module.exports = config
