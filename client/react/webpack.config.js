@@ -11,7 +11,7 @@ module.exports = (env, argv) => {
         // development mode下拓展设置
         return merge(baseConfig, devConfig)
     } else {
-        // product mode下拓展设置
+        // production mode下拓展设置
         return merge(baseConfig, prodConfig)
     }
 }

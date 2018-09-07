@@ -5,8 +5,8 @@ const CompressionPlugin = require("compression-webpack-plugin")
 
 const config = {
     plugins: [
-        new CleanWebpackPlugin('dist/*', {
-            root: path.resolve(__dirname, '../')
+        new CleanWebpackPlugin('dist/*.*', {
+            root: path.join(__dirname, '..'),
         }),
         new HtmlWebpackPlugin({
             filename: 'index.html',
@@ -14,9 +14,9 @@ const config = {
             minify: {
                 removeComments: true,
                 collapseWhitespace: true,
-                removeAttributeQuotes: true
+                removeAttributeQuotes: true,
             },
-            chunksSortMode: 'dependency'
+            chunksSortMode: 'dependency',
         }),
         new CompressionPlugin({
             test: /\.(js|css)$/,
