@@ -12,6 +12,12 @@ const extractSass = new ExtractTextPlugin({
     filename: 'static/css/[name].sass.[hash:5].css',
     allChunks: true
 })
+
+const extractLess = new ExtractTextPlugin({
+    filename: 'static/css/[name].less.[hash:5].css',
+    allChunks: true
+})
+
 const config = {
     entry: {
         index: path.join(__dirname, '../src/index.tsx')
@@ -72,9 +78,22 @@ const config = {
             {
                 test: /\.scss$/,
                 loader: extractSass.extract({
-                    use: ["css-loader", "sass-loader"],
+                    use: ['css-loader', 'sass-loader'],
                     // 在开发环境使用 style-loader
-                    fallback: "style-loader"
+                    fallback: 'style-loader'
+                })
+            },
+            {
+                test: /\.less$/,
+                loader: extractLess.extract({
+                    use: ['css-loader', {
+                        loader: 'less-loader',
+                        options: {
+                            javascriptEnabled: true
+                        }
+                    }],
+                    // 在开发环境使用 style-loader
+                    fallback: 'style-loader'
                 })
             },
             {
@@ -100,6 +119,7 @@ const config = {
     plugins: [
         extractCss,
         extractSass,
+        extractLess,
     ],
     optimization: {
         splitChunks: {

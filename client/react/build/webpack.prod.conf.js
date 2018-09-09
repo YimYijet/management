@@ -1,11 +1,11 @@
 const path = require('path')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const CompressionPlugin = require("compression-webpack-plugin")
+const CompressionPlugin = require('compression-webpack-plugin')
 
 const config = {
     plugins: [
-        new CleanWebpackPlugin('dist/*.*', {
+        new CleanWebpackPlugin(['dist/*.*', '.awcache/*.*'], {
             root: path.join(__dirname, '..'),
         }),
         new HtmlWebpackPlugin({
