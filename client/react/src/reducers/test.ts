@@ -4,15 +4,15 @@ import { ITestAction } from '@/actions/test'
 
 const initState = {
     name: 'rick',
-    age: 70
+    age: 70,
 }
 
-export function testReducer(state: ITest = initState, action: ITestAction): ITest {
-    switch (action.type) {
+export function testReducer(state: ITest = initState, { type, name, age }: ITestAction): ITest {
+    switch (type) {
         case Test.ADD_TEST:
             return {
-                name: action.name,
-                age: action.age
+                name,
+                age,
             } 
     }
     return state

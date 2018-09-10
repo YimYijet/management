@@ -4,7 +4,7 @@ import { Input, Card } from 'antd'
 export interface IProps {
     name: string,
     age?: number,
-    ChangeName?: () => void
+    ChangeName?: (age, e) => void
 }
 
 export default class TestComponent extends React.Component<IProps, {}> {
@@ -13,11 +13,11 @@ export default class TestComponent extends React.Component<IProps, {}> {
     }
 
     render() {
-        const { name, age,  ChangeName} = this.props
+        const { name, age,  ChangeName } = this.props
         return (
             <div>
                 <Card title={name}>年龄：{age}</Card>
-                <Input onChange={ChangeName}></Input>
+                <Input onChange={(e) => ChangeName(age, e)}/>
             </div>
         )
     }

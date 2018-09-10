@@ -1,11 +1,10 @@
-import { createStore, Action } from 'redux'
+import { createStore, Action, applyMiddleware } from 'redux'
+import { IStoreState } from '@/types'
 import rootReducer from '@/reducers'
 
-import { composeWithDevTools } from 'redux-devtools-extension'
-
-export default () => {
-    return createStore<any, Action<any>, {}, {}>(
+export default (middleware) => {
+    return createStore<IStoreState, Action<any>, {}, {}>(
         rootReducer,
-        composeWithDevTools()
+        applyMiddleware(middleware),
     )
 }

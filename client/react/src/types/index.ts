@@ -1,5 +1,7 @@
+import { RouterState } from 'react-router-redux'
 import { ITest } from './test'
 
 export interface IStoreState {
-    test: ITest
+    router?: RouterState
+    test?: ITest
 }
