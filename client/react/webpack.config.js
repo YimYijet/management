@@ -5,8 +5,8 @@ const prodConfig = require('./build/webpack.prod.conf')
 const baseConfig = require('./build/webpack.base.conf')
 
 module.exports = (env, argv) => {
-    const isDev = argv.mode !== 'production' ? true : false
-
+    const isDev = argv.model != 'production' ? true : false
+    
     if (isDev) {
         // development mode下拓展设置
         return merge(baseConfig, devConfig)

@@ -5,7 +5,7 @@ const CompressionPlugin = require('compression-webpack-plugin')
 
 const config = {
     plugins: [
-        new CleanWebpackPlugin(['dist/*.*', '.awcache/*.*'], {
+        new CleanWebpackPlugin(['dist/*', '.awcache/*.*'], {
             root: path.join(__dirname, '..'),
         }),
         new HtmlWebpackPlugin({
@@ -21,6 +21,8 @@ const config = {
         new CompressionPlugin({
             test: /\.(js|css)$/,
             threshold: 10240,
+            // algorithm: 'gzip',
+            // deleteOriginalAssets: true,
         })
     ],
     mode: 'production'
