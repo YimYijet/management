@@ -21,8 +21,8 @@ const config = {
         new CompressionPlugin({
             test: /\.(js|css)$/,
             threshold: 10240,
-            // algorithm: 'gzip',
-            // deleteOriginalAssets: true,
+            algorithm: 'gzip',
+            deleteOriginalAssets: true,
         })
     ],
     mode: 'production'
