@@ -24,7 +24,7 @@ const secret = util.getSecret()
 app.keys = [secret]
 // jwt加密过滤
 app.use(jwt({ secret }).unless({
-    path: [/^\/login|^\/static|^\/$/],
+    path: [/^\/(login|static)|^\/$/],
 }))
 // 请求，响应日志
 app.use(logger())

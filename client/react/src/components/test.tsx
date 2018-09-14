@@ -13,7 +13,7 @@ export default class TestComponent extends React.Component<IProps, {}> {
     }
 
     render() {
-        const { name, age,  ChangeName } = this.props
+        const { name, age,  ChangeName }: IProps = this.props
         return (
             <div>
                 <Card title={name}>年龄：{age}</Card>

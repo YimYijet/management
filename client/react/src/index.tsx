@@ -2,19 +2,20 @@ import * as React from 'react'
 import * as ReactDom from 'react-dom'
 import { Provider } from 'react-redux'
 import { routerMiddleware } from 'react-router-redux'
-import createHistory from 'history/createBrowserHistory'
+import { Middleware, Store } from 'redux'
+import { createBrowserHistory, History } from 'history'
 import StoreConfig from '@/store'
 import Router from '@/views/Router'
 
-const history = createHistory()
+const history: History = createBrowserHistory()
 
-const middleware = routerMiddleware(history)
+const middleware: Middleware = routerMiddleware(history)
 
-const store = StoreConfig(middleware)
+const store: Store = StoreConfig(middleware)
 
 ReactDom.render(
     <Provider store={store}>
-        <Router history={history}/>
+        <Router/>
     </Provider>,
     document.getElementById('app') as HTMLElement
 )

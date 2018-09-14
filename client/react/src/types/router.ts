@@ -1,11 +1,8 @@
-import { ComponentClass } from 'react'
-
-export interface ILink {
-    path: string
-    title: string
-}
+import * as React from 'react'
+import Loadable from 'react-loadable'
 
 export interface IRoute {
     path: string
-    component: ComponentClass
+    title: string
+    component: (React.ComponentClass<{}, any> & Loadable.LoadableComponent) | (React.StatelessComponent<{}> & Loadable.LoadableComponent)
 }
