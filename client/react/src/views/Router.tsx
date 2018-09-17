@@ -17,6 +17,7 @@ const routeList: IRoute[] = [
     {
         path: '/',
         title: '首页',
+        name: 'home',
         component: Loadable({
             loader: () => import('@/views/Home'),
             loading: Loading
@@ -25,6 +26,7 @@ const routeList: IRoute[] = [
     {
         path: '/Test',
         title: '测试',
+        name: 'test',
         component: Loadable({
             loader: () => import('@/containers/test'),
             loading: Loading
@@ -33,6 +35,7 @@ const routeList: IRoute[] = [
     {
         path: '/Main',
         title: '主体',
+        name: 'main',
         component: Loadable({
             loader: () => import('@/views/Main'),
             loading: Loading
@@ -41,6 +44,7 @@ const routeList: IRoute[] = [
     {
         path: '/Charts',
         title: '图表',
+        name: 'charts',
         component: Loadable({
             loader: () => import('@/views/Charts'),
             loading: Loading
@@ -49,6 +53,7 @@ const routeList: IRoute[] = [
     {
         path: '/System',
         title: '系统',
+        name: 'system',
         component: Loadable({
             loader: () => import('@/views/System'),
             loading: Loading

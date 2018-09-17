@@ -4,5 +4,6 @@ import Loadable from 'react-loadable'
 export interface IRoute {
     path: string
     title: string
+    name: string
     component: (React.ComponentClass<{}, any> & Loadable.LoadableComponent) | (React.StatelessComponent<{}> & Loadable.LoadableComponent)
 }
