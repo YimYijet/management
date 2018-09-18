@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 const config = {
-    devtool: 'eval-source-map',
+    devtool: 'cheap-module-eval-source-map',
     devServer: {
         host: 'localhost',
         port: '3000',
