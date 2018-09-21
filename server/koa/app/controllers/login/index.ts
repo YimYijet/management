@@ -15,19 +15,21 @@ class LoginController {
             const user: IUser = await userService.findOne(query)
             if (user) {
                 const roleId: string = await aclInstance.getAcl().userRoles(user.id)
-                const [roles, resources] = await Promise.all([
+                const [role, resources] = await Promise.all([
                         roleService.findById(roleId),
                         aclInstance.getAcl().whatResources(roleId),
                     ]),
                     token = jwt.sign({
                         resources,
-                        roles,
+                        role,
                         user,
                     }, util.getSecret())
                 ctx.session.token = token
                 ctx.body = {
                     code: 200,
                     content: {
+                        resources,
+                        role,
                         token,
                         userId: user.id,
                     },

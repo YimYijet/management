@@ -14,22 +14,22 @@ interface IState {
 
 export default class Menu extends React.Component<IProps> {
 
-    state: IState
+    public state: IState
 
     constructor(props: IProps) {
         super(props)
         this.state = {
-            current: props.routeList.length ? props.routeList[0].name : ''
+            current: props.routeList.length ? props.routeList[0].name : '',
         }
     }
 
-    handleClick(e) {
+    public handleClick(e) {
         this.setState({
             current: e.key,
         })
     }
 
-    render() {
+    public render() {
         const { routeList }: IProps = this.props, linkGroup = [], routeGroup = []
 
         routeList.forEach((item, index) => {
@@ -42,13 +42,17 @@ export default class Menu extends React.Component<IProps> {
                 <Route exact={!index} key={item.name} path={item.path} component={item.component} />
             ))
         })
-    
+
         return (
             <HashRouter>
                 <Layout className={'layout'}>
                     <Layout.Header className={'header'}>
-                        <Nav mode="horizontal" selectedKeys={[this.state.current]} className={'nav'} onClick={(e) => this.handleClick(e)}>
-                            {...linkGroup}
+                        <Nav
+                            mode='horizontal'
+                            selectedKeys={[this.state.current]}
+                            className={'nav'}
+                            onClick={(e) => this.handleClick(e)}
+                        >{...linkGroup}
                         </Nav>
                     </Layout.Header>
                     <Layout.Content>

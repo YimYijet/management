@@ -1,8 +1,6 @@
 import * as React from 'react'
 
-interface IProps {
-
-}
+interface IProps {}
 
 export default class Charts extends React.Component<IProps> {
     render() {

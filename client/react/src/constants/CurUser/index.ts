@@ -1,0 +1,2 @@
+export const UPDATE_CURUSER = 'UPDATE_CURUSER'
+export type UPDATE_CURUSER = typeof UPDATE_CURUSER

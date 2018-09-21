@@ -1,8 +1,8 @@
-import * as Test from '@/constants/test'
-import { ITest } from '@/types/test'
-import { ITestAction } from '@/actions/test'
+import * as Test from '@/constants/Test'
+import { ITest } from '@/types/Test'
+import { ITestAction } from '@/actions/Test'
 
-const initState = {
+const initState: ITest = {
     name: 'rick',
     age: 70,
 }
@@ -13,7 +13,7 @@ export function testReducer(state: ITest = initState, { type, name, age }: ITest
             return {
                 name,
                 age,
-            } 
+            }
     }
     return state
 }

@@ -5,7 +5,7 @@ import { routerMiddleware } from 'react-router-redux'
 import { Middleware, Store } from 'redux'
 import { createBrowserHistory, History } from 'history'
 import StoreConfig from '@/store'
-import Router from '@/views/Router'
+import Router from '@/containers/Router'
 
 const history: History = createBrowserHistory()
 

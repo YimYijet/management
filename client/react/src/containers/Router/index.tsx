@@ -1,11 +1,10 @@
 import * as React from 'react'
 import Loadable from 'react-loadable'
 import { Spin } from 'antd'
+import { connect } from 'react-redux';
 import { IRoute } from "@/types/router"
 import Menu from '@/components/Menu'
-
-interface IProps {
-}
+import { ICurUser } from '@/types/CurUser';
 
 function Loading(): JSX.Element {
     return (
@@ -19,7 +18,7 @@ const routeList: IRoute[] = [
         title: '首页',
         name: 'home',
         component: Loadable({
-            loader: () => import('@/views/Home'),
+            loader: () => import('@/containers/Home'),
             loading: Loading
         })
     },
@@ -28,16 +27,16 @@ const routeList: IRoute[] = [
         title: '测试',
         name: 'test',
         component: Loadable({
-            loader: () => import('@/containers/test'),
+            loader: () => import('@/containers/Test'),
             loading: Loading
-        })   
+        })
     },
     {
         path: '/Main',
         title: '主体',
         name: 'main',
         component: Loadable({
-            loader: () => import('@/views/Main'),
+            loader: () => import('@/containers/Main'),
             loading: Loading
         })
     },
@@ -46,7 +45,7 @@ const routeList: IRoute[] = [
         title: '图表',
         name: 'charts',
         component: Loadable({
-            loader: () => import('@/views/Charts'),
+            loader: () => import('@/containers/Charts'),
             loading: Loading
         })
     },
@@ -54,22 +53,19 @@ const routeList: IRoute[] = [
         path: '/System',
         title: '系统',
         name: 'system',
+        perm: true,
         component: Loadable({
-            loader: () => import('@/views/System'),
+            loader: () => import('@/containers/System'),
             loading: Loading
         })
     }
 ]
 
-export default class RootRouter extends React.Component<IProps> {
-
-    constructor(props) {
-        super(props)
-    }
-
-    render() {
-        return (
-            <Menu routeList={routeList}/>
-        )
+function mapStateToProps({ resources }: ICurUser) {
+    return {
+        resources,
+        routeList,
     }
 }
+
+export default connect(mapStateToProps)(Menu)

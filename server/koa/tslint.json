@@ -8,6 +8,7 @@
             true,
             "single",
             "avoid-escape"
-        ]
+        ],
+        "ordered-imports": false
     }
 }
