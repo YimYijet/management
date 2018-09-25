@@ -12,3 +12,7 @@ export function updateCurUser(data: ICurUser): ICurUserAction {
         type: CurUser.UPDATE_CURUSER
     }
 }
+
+export function Login(data) {
+    
+}

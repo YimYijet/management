@@ -4,7 +4,7 @@ import { Spin } from 'antd'
 import { connect } from 'react-redux';
 import { IRoute } from "@/types/router"
 import Menu from '@/components/Menu'
-import { ICurUser } from '@/types/CurUser';
+import { IStoreState } from 'types';
 
 function Loading(): JSX.Element {
     return (
@@ -61,7 +61,7 @@ const routeList: IRoute[] = [
     }
 ]
 
-function mapStateToProps({ resources }: ICurUser) {
+function mapStateToProps({ curUser: { resources } }: IStoreState) {
     return {
         resources,
         routeList,
