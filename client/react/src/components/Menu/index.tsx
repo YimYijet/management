@@ -31,12 +31,12 @@ export default class Menu extends React.Component<IProps> {
     }
 
     public componentWillMount() {
-        const { routeList } = this.props
-        this.setState({
-            current: routeList.find((item) => {
-                return item.path == `/${location.hash.split('/')[1]}`
-            }).name
+        const { routeList } = this.props, curRoute = routeList.find((item) => {
+            return item.path == `/${location.hash.split('/')[1]}`
         })
+        this.setState((preState: IState, props: IProps) => ({
+            current: curRoute ? curRoute.name : preState.current
+        }))
     }
 
     public render() {
