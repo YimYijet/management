@@ -1,10 +1,10 @@
 import TestComponent from '@/components/Test'
 import * as TestActions from '@/actions/Test'
-import { ITest } from '@/types/Test'
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
+import { IStoreState } from '@/types';
 
-function mapStateToProps({ name, age }: ITest) {
+function mapStateToProps({ test: { name, age } }: IStoreState) {
     return {
         age,
         name,

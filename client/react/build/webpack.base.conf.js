@@ -45,7 +45,7 @@ const config = {
                         useCache: true,
                         useBabel: true,
                         babelOptions: {
-                            babelrc: false,
+                            babelrc: true,
                             plugins: ['transform-class-properties', 'syntax-dynamic-import', 'react-hot-loader/babel']
                         },
                         getCustomTransformers: () => ({
