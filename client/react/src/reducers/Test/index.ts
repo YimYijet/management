@@ -8,6 +8,7 @@ const initState: ITest = {
 }
 
 export function testReducer(state: ITest = initState, { type, name, age }: ITestAction): ITest {
+    console.log('reducer')
     switch (type) {
         case Test.ADD_TEST:
             return {

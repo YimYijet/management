@@ -8,6 +8,7 @@ export interface ITestAction {
 }
 
 export function addTest({ name, age }: ITest): ITestAction {
+    console.log('action')
     return {
         age,
         name,

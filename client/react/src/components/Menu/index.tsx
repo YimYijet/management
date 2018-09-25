@@ -12,20 +12,30 @@ interface IState {
     current: string
 }
 
+const Header = Layout.Header, Content = Layout.Content
+
 export default class Menu extends React.Component<IProps> {
 
-    public state: IState
+    public state: IState = {
+        current: this.props.routeList.length ? this.props.routeList[0].name : ''
+    }
 
     constructor(props: IProps) {
         super(props)
-        this.state = {
-            current: props.routeList.length ? props.routeList[0].name : '',
-        }
     }
 
     public handleClick(e) {
         this.setState({
             current: e.key,
+        })
+    }
+
+    public componentWillMount() {
+        const { routeList } = this.props
+        this.setState({
+            current: routeList.find((item) => {
+                return item.path == `/${location.hash.split('/')[1]}`
+            }).name
         })
     }
 
@@ -39,14 +49,14 @@ export default class Menu extends React.Component<IProps> {
                 </Nav.Item>
             ))
             routeGroup.push((
-                <Route exact={!index} key={item.name} path={item.path} component={item.component} />
+                <Route exact key={item.name} path={item.path} component={item.component} />
             ))
         })
 
         return (
             <HashRouter>
                 <Layout className={'layout'}>
-                    <Layout.Header className={'header'}>
+                    <Header className={'header'}>
                         <Nav
                             mode='horizontal'
                             selectedKeys={[this.state.current]}
@@ -54,12 +64,12 @@ export default class Menu extends React.Component<IProps> {
                             onClick={(e) => this.handleClick(e)}
                         >{...linkGroup}
                         </Nav>
-                    </Layout.Header>
-                    <Layout.Content>
+                    </Header>
+                    <Content>
                         <Switch>
                             {...routeGroup}
                         </Switch>
-                    </Layout.Content>
+                    </Content>
                 </Layout>
             </HashRouter>
         )
