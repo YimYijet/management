@@ -2,6 +2,8 @@ import * as React from 'react'
 import { Dispatch } from 'redux'
 import Login from './Login'
 import * as CurUserAction from '@/actions/CurUser'
+import * as CurUser from '@/constants/CurUser'
+import { ICurUser } from '@/types/CurUser'
 
 interface IProps {
     
@@ -13,8 +15,8 @@ interface IProps {
 
 // function mapDispatchToProps(dispatch: Dispatch<CurUserAction.ICurUserAction>) {
 //     return {
-//         login: (values) => {
-//             dispatch(CurUserAction.updateCurUser({  }))
+//         login: () => {
+//             dispatch(CurUserAction.Login())
 //         }
 //     }
 // }

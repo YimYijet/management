@@ -16,7 +16,7 @@ const store: Store = StoreConfig([historyMiddleware, thunkMiddleware])
 
 ReactDom.render(
     <Provider store={store}>
-        <Router />
+        <Router history={store.getState()}/>
     </Provider>,
     document.getElementById('app') as HTMLElement
 )
