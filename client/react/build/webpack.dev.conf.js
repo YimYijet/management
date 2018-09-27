@@ -11,7 +11,7 @@ const config = {
         open: true,
         hot: true,
         proxy: {
-            '/api': {
+            '/': {
                 target: 'http://localhost:3344/'
             },
             changeOrigin: true

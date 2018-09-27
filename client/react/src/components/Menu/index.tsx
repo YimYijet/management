@@ -5,6 +5,7 @@ import { IRoute } from '@/types/router'
 import './index.scss'
 
 interface IProps {
+    resources: object
     routeList: IRoute[]
 }
 
@@ -40,17 +41,19 @@ export default class Menu extends React.Component<IProps> {
     }
 
     public render() {
-        const { routeList }: IProps = this.props, linkGroup = [], routeGroup = []
-
+        const { routeList, resources }: IProps = this.props, linkGroup = [], routeGroup = []
+        
         routeList.forEach((item, index) => {
-            linkGroup.push((
-                <Nav.Item key={item.name} >
-                    <Link to={item.path} replace>{item.title}</Link>
-                </Nav.Item>
-            ))
-            routeGroup.push((
-                <Route exact key={item.name} path={item.path} component={item.component} />
-            ))
+            if (item.perm && resources[item.name] || !item.perm) {
+                linkGroup.push((
+                    <Nav.Item key={item.name} >
+                        <Link to={item.path} replace>{item.title}</Link>
+                    </Nav.Item>
+                ))
+                routeGroup.push((
+                    <Route exact key={item.name} path={item.path} component={item.component} />
+                ))
+            }
         })
 
         return (

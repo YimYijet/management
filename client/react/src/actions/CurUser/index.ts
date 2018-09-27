@@ -1,29 +1,16 @@
 import * as CurUser from '@/constants/CurUser'
 import { ICurUser } from '@/types/CurUser';
-import axios from 'axios'
+import request from '@/lib/request'
 
 export interface ICurUserAction {
     type: CurUser.UPDATE_CURUSER
     data: ICurUser
 }
 
-
-// export interface ICurUserAction {
-//     type: CurUser.UPDATE_CURUSER
-//     data: ICurUser
-// }
-export function requestCurUser(data: ICurUser): ICurUserAction {
-    return {
-        data,
-        type: CurUser.UPDATE_CURUSER
+export function Login(data): Function {
+    return (dispatch, getState) => {
+        return request.post('/login', data).then((res) => {
+            dispatch({ type: CurUser.UPDATE_CURUSER, data: res.data.content } as ICurUserAction)
+        })
     }
 }
-
-// export function Login(): Function {
-//     return (dispatch) => {
-//         axios.get('/users').then((res) => {
-//             console.log(res)
-//             dispatch(updateCurUser(res.data as ICurUser))
-//         })
-//     }
-// }

@@ -4,7 +4,7 @@ import { Spin } from 'antd'
 import { connect } from 'react-redux';
 import { IRoute } from "@/types/router"
 import Menu from '@/components/Menu'
-import { IStoreState } from 'types';
+import { IStoreState } from '@/types';
 
 function Loading(): JSX.Element {
     return (

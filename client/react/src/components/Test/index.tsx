@@ -9,7 +9,6 @@ export interface IProps {
 
 export default function TestComponent(props: IProps): React.ReactElement<IProps> {
     const { name, age, ChangeName }: IProps = props
-    console.log(props)
     return (
         <div>
             <Card title={name}>年龄：{age}</Card>

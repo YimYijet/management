@@ -23,9 +23,9 @@ const secret = util.getSecret()
 // cookie加密key
 app.keys = [secret]
 // jwt加密过滤
-// app.use(jwt({ secret }).unless({
-//     path: [/^\/(login|static)|^\/$/],
-// }))
+app.use(jwt({ secret }).unless({
+    path: [/^\/(login|static)|^\/$/],
+}))
 // 请求，响应日志
 app.use(logger())
 // 静态路径
