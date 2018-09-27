@@ -3,3 +3,6 @@
 /client/react/node_modules/
 /client/react/dist/
 /client/react/.*/
+/client/react-mobx/node_modules/
+/client/react-mobx/dist/
+/client/react-mobx/.*/
