@@ -1,6 +1,6 @@
 import * as CurUser from '@/constants/CurUser'
 import { ICurUser } from '@/types/CurUser';
-import request from '@/lib/request'
+import { login } from '@/services/CurUser'
 
 export interface ICurUserAction {
     type: CurUser.UPDATE_CURUSER
@@ -9,7 +9,7 @@ export interface ICurUserAction {
 
 export function Login(data): Function {
     return (dispatch, getState) => {
-        return request.post('/login', data).then((res) => {
+        return login(data).then((res) => {
             dispatch({ type: CurUser.UPDATE_CURUSER, data: res.data.content } as ICurUserAction)
         })
     }
