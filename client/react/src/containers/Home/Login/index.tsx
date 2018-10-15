@@ -14,11 +14,15 @@ const FormItem = Form.Item
 
 class LoginForm extends React.Component<IProps> {
 
+    private myRef: any = React.createRef()
+
     handleSubmit(e) {
         const { dispatch, form } = this.props
-        form.validateFields((err, values) => {
+        form.validateFields(async (err, values) => {
             if (!err) {
-                dispatch(Login(values))
+                await dispatch(Login(values))
+                // console.log(this.myRef)
+                this.myRef.current.style = 'color: #66ccff;'
             }
         })
     }
@@ -56,7 +60,7 @@ class LoginForm extends React.Component<IProps> {
                     <Button htmlType="submit">登录</Button>
                 </FormItem>
             </Form> : 
-            <span>{userId}</span>
+            <span ref={this.myRef}>{userId}</span>
         )
     }
 }

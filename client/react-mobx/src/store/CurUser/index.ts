@@ -1,6 +1,5 @@
 import { observable, action } from 'mobx'
 import { login } from '@/services/CurUser'
-import { ICurUser } from '@/types/CurUser'
 
 class CurUserStore {
 
@@ -24,8 +23,7 @@ class CurUserStore {
             this.role = res.data.content.role
             this.resources = res.data.content.resources
         })
-    }
-    
+    }  
 }
 
 export default new CurUserStore()
