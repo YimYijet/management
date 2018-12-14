@@ -1,5 +1,5 @@
 {
-  "name": "koa-server",
+  "name": "koa-waterline",
   "version": "1.0.0",
   "description": "KOA2 with typescript",
   "main": "index.js",
@@ -13,12 +13,12 @@
     "node": ">= 10.5.0"
   },
   "keywords": [
+    "waterline",
     "koa",
-    "typescript",
-    "mongodb"
+    "typescript"
   ],
   "author": "yimyijet@163.com",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "acl": "^0.4.11",
     "jsonwebtoken": "^8.4.0",
@@ -34,9 +34,10 @@
     "koa-static": "^5.0.0",
     "koa-views": "^6.1.4",
     "mongodb": "^3.1.10",
-    "mongoose": "^5.3.15",
     "oauth2-server": "^3.0.1",
-    "socket.io": "^2.2.0"
+    "sails-mongo": "^1.0.1",
+    "socket.io": "^2.2.0",
+    "waterline": "^0.13.6"
   },
   "devDependencies": {
     "@types/acl": "^0.4.35",
@@ -51,7 +52,6 @@
     "@types/koa-session": "^5.7.4",
     "@types/koa-static": "^4.0.0",
     "@types/koa-views": "^2.0.3",
-    "@types/mongoose": "^5.3.4",
     "@types/node": "^10.12.12",
     "@types/oauth2-server": "^3.0.10",
     "@types/socket.io": "^2.1.2",

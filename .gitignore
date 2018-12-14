@@ -1,5 +1,7 @@
 /server/koa/node_modules/
 /server/koa/dist/
+/server/koa-waterline/node_modules/
+/server/koa-waterline/dist/
 /client/react/node_modules/
 /client/react/dist/
 /client/react/.*/
