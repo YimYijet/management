@@ -1,6 +1,5 @@
 const path = require('path')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const tsImportPluginFactory = require('ts-import-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 const extractCss = new ExtractTextPlugin({
@@ -38,27 +37,7 @@ const config = {
         rules: [
             {
                 test: /\.(ts(x?)|js(x?))$/,
-                use: [{
-                    loader: 'awesome-typescript-loader',
-                    options: {
-                        transpileOnly: true,
-                        useCache: true,
-                        useBabel: true,
-                        babelOptions: {
-                            babelrc: false,
-                            plugins: ['transform-class-properties', 'syntax-dynamic-import', 'react-hot-loader/babel']
-                        },
-                        getCustomTransformers: () => ({
-                            before: [
-                                tsImportPluginFactory({
-                                    libraryName: 'antd',
-                                    libraryDirectory: 'lib',
-                                    style: true
-                                })
-                            ]
-                        })
-                    }
-                }],
+                loader: ['babel-loader', 'ts-loader'],
                 include: path.join(__dirname, '../src'),
                 exclude: /node_modules/
             },
